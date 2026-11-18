@@ -7,8 +7,7 @@ export type ScreenId =
   | 'jadwal'
   | 'setoran'
   | 'kas-amalan'
-  | 'surat-yasin'
-  | 'google-sync';
+  | 'surat-yasin';
 
 export type StatusPeriode = 'Aktif' | 'Selesai';
 export type StatusAnggota = 'Aktif' | 'Nonaktif';

@@ -158,7 +158,14 @@ export function KasAmalanScreen({
 
   const openSaldoAwalModal = () => {
     const target = activePeriode ?? periodes[0];
-    if (!target) return;
+    if (!target) {
+      setFeedback({
+        type: 'error',
+        message:
+          'Buat Periode Yasinan terlebih dahulu di menu Periode Yasinan sebelum mengatur saldo awal kas.',
+      });
+      return;
+    }
     setSaldoPeriodeId(target.PeriodeID);
     setInputSaldoKambing(String(target.SaldoAwalKambing ?? 0));
     setInputSaldoAmalan(String(target.SaldoAwalAmalan ?? 0));

@@ -5,7 +5,6 @@ import {
   CalendarCheck,
   CalendarRange,
   ClipboardCheck,
-  FileSpreadsheet,
   LayoutDashboard,
   ShieldCheck,
   Users,
@@ -65,12 +64,6 @@ const NAV_ITEMS: NavItem[] = [
     id: 'kas-amalan',
     label: 'Kas Amalan',
     icon: Wallet,
-    roles: ['admin'],
-  },
-  {
-    id: 'google-sync',
-    label: 'Google Sheets & Drive',
-    icon: FileSpreadsheet,
     roles: ['admin'],
   },
   {

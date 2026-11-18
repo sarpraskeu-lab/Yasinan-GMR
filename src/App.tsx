@@ -39,12 +39,19 @@ import {
 } from './components/SetoranScreen';
 import { KasAmalanScreen } from './components/KasAmalanScreen';
 import { SuratYasinScreen } from './components/SuratYasinScreen';
-import { GoogleWorkspaceScreen } from './components/GoogleWorkspaceScreen';
 
-const STORAGE_KEY = 'yasinan_kas_jadwal_v3';
+const STORAGE_KEY = 'yasinan_kas_jadwal_v4';
+const LEGACY_STORAGE_KEYS = [
+  'yasinan_kas_jadwal_v1',
+  'yasinan_kas_jadwal_v2',
+  'yasinan_kas_jadwal_v3',
+];
 
 function loadInitialData(): AppDataState {
   try {
+    for (const legacyKey of LEGACY_STORAGE_KEYS) {
+      window.localStorage.removeItem(legacyKey);
+    }
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw) as Partial<AppDataState>;
@@ -74,7 +81,7 @@ function loadInitialData(): AppDataState {
       }
     }
   } catch {
-    // Fallback to initial seed data if localStorage is unavailable or malformed
+    // Fallback to empty initial state if localStorage is unavailable or malformed
   }
   return {
     periodes: INITIAL_PERIODE,
@@ -444,38 +451,6 @@ export default function App() {
     }));
   };
 
-  const handleReplaceAllData = (nextData: AppDataState) => {
-    setData({
-      periodes: nextData.periodes.map((p) => ({
-        ...p,
-        SaldoAwalKambing: p.SaldoAwalKambing ?? 0,
-        SaldoAwalAmalan: p.SaldoAwalAmalan ?? 0,
-      })),
-      anggotas: nextData.anggotas.map((a) => ({
-        ...a,
-        IkutIuranKambing: a.IkutIuranKambing ?? true,
-      })),
-      jadwals: nextData.jadwals,
-      setorans: nextData.setorans,
-      transaksiKas: nextData.transaksiKas,
-      tunggakanAwals: nextData.tunggakanAwals ?? [],
-    });
-  };
-
-  const handleImportAnggotaRows = (newMembers: Anggota[]) => {
-    setData((prev) => ({
-      ...prev,
-      anggotas: [...prev.anggotas, ...newMembers],
-    }));
-  };
-
-  const handleImportKasRows = (newTransactions: TransaksiKas[]) => {
-    setData((prev) => ({
-      ...prev,
-      transaksiKas: [...newTransactions, ...prev.transaksiKas],
-    }));
-  };
-
   const isPublic = role === 'publik';
   const mobileTabs = isPublic ? PUBLIC_MOBILE_TABS : ADMIN_MOBILE_TABS;
 
@@ -574,15 +549,6 @@ export default function App() {
               onAddTransaksi={handleAddTransaksi}
               onUpdateTransaksi={handleUpdateTransaksi}
               onUpdateSaldoAwalKas={handleUpdateSaldoAwalKas}
-            />
-          )}
-
-          {!isPublic && activeScreen === 'google-sync' && (
-            <GoogleWorkspaceScreen
-              data={data}
-              onReplaceAllData={handleReplaceAllData}
-              onImportAnggotaRows={handleImportAnggotaRows}
-              onImportKasRows={handleImportKasRows}
             />
           )}
 

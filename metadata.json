@@ -2,5 +2,7 @@
   "name": "Sistem Manajemen Kas & Jadwal Yasinan",
   "description": "Aplikasi pencatatan arisan, iuran kambing, uang amalan, dan jadwal tuan rumah yasinan.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
