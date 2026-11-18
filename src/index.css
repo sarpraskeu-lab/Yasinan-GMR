@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-primary: #16A34A;
+  --color-brand-secondary: #15803D;
+  --color-brand-bg: #F0FDF4;
+  --color-brand-surface: #FFFFFF;
+  --color-brand-text: #14532D;
+  --color-brand-accent: #FACC15;
+}
+
+@layer base {
+  html,
+  body {
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    background-color: #F0FDF4;
+    color: #14532D;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  button,
+  [role="button"],
+  select {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid #16A34A;
+    outline-offset: 2px;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
